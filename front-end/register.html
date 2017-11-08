@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>login</title>
+    <link rel="stylesheet" type="text/css" href="css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="css/demo.css" />
+    <link rel="stylesheet" type="text/css" href="css/component.css" />
+    <link rel="stylesheet" href="css/common_form.css">
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">  
+    
+    <script src="js/html5.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <meta charset="UTF-8">
+    <title>log-up</title>
+    
+    <script >
+    var xmlHttpReq;  //创建一个XmlHttpRequest对象  
+    function createXmlHttpRequest()  
+    {  
+        if(window.XMLHttpRequest)  
+        {  
+           xmlHttpReq = new XMLHttpRequest();//非IE浏览器  
+        }else  
+        {  
+           xmlHttpReq = new ActiveXObject("Microsoft.XMLHTTP");//IE浏览器  
+        }  
+    }  
+    //检测用户名是否已经被注册  
+    function checkUsername()  
+    {  
+        var username = document.getElementById("inputUsername").value;  
+        if(username=="")  
+        {  
+            alert("用户名必须填写！");  
+            return false;  
+        }  
+        
+        createXmlHttpRequest();  //首先创建精灵对象  
+        xmlHttpReq.onreadystatechange=handle;  //指明准备状态改变时回调的函数名  
+        var url = "signupUsername.jsp?username="+username;//尝试以异步的get方式访问某个URL   //请求服务器端的一个servlet  
+        xmlHttpReq.open("get",url,true);      //向服务器发送请求  
+        xmlHttpReq.send(null);  
+    }  
+    function handle() //状态发生改变时回调的函数    
+    {  
+        if(xmlHttpReq.readyState==4)  //准备状态为4  
+        {     
+               if(xmlHttpReq.status==200)  //响应状态码为200，代表一切正常  
+               {  
+                   var res = xmlHttpReq.responseText;  
+                   var result = document.getElementById("resultUsername");  
+                   if (res!="") result.innerHTML = "<br><font color=red>"+res+"</font>";
+               }  
+         }  
+    } 
+        
+    function checkEmail()  
+    {  
+        var Email = document.getElementById("inputEmail3").value;  
+        if(Email=="")  
+        {  
+            alert("邮箱必须填写！");  
+            return false;  
+        }  
+        createXmlHttpRequest();   //首先创建精灵对象  
+        xmlHttpReq.onreadystatechange=handleEmail;   //指明准备状态改变时回调的函数名  
+        var url = "signupEmail.jsp?Email="+Email;//尝试以异步的get方式访问某个URL  //请求服务器端的一个servlet  
+        xmlHttpReq.open("get",url,true);  //向服务器发送请求  
+        xmlHttpReq.send(null);  
+    } 
+    function handleEmail()  
+    {  
+        if(xmlHttpReq.readyState==4)   //准备状态为4  
+        {     
+               if(xmlHttpReq.status==200)   //响应状态码为200，代表一切正常  
+               {  
+                   var res = xmlHttpReq.responseText;  
+                   var result = document.getElementById("resultEmail");  
+                   if (res!="") result.innerHTML = "<br><font color=red>"+res+"</font>";
+               }  
+         }  
+    } 
+</script>
+
+</head>
+<body>
+
+<div class="container demo-1">
+    <div class="content">
+        <div id="large-header" class="large-header">
+            <canvas id="demo-canvas"></canvas>
+            <div class="logo_box">
+                <h1>注册界面</h1>
+                <action name="Signup" class="Project.Action" method="signup">
+                     
+
+                    <div class="input_outer">
+                        <span class="u_user"></span>
+                        <input name="username" class="text" style="color: #FFFFFF !important" type="text" placeholder="用户名">
+                     <span id= "resultUsername"></span>
+                    </div>
+
+                    <div class="input_outer">
+                        <span class="us_uer"></span>
+                        <input name="EmailOrTel" class="text" style="color: #FFFFFF !important; position:absolute; z-index:100;" type="email"  placeholder="请输入邮箱">
+                        <span id= "resultEmail"></span>
+                    </div>
+                    
+                    <div class="input_outer">
+                        <span class="us_uer"></span>
+                        <input name="password" class="text" style="color: #FFFFFF !important; position:absolute; z-index:100;" type="text" placeholder="请输入密码">
+                    </div>
+
+                       <div >
+                        <td><p><font size = "5" face ="arial" color ="grey">性别：</font></td>
+                        <td><input type="radio" name="sex" value="man" checked />男</td>
+                        <td> <input type="radio" name="sex" value="woman"  />女</td>
+                    </div>
+                   
+            <div id = "body">
+                <div id = "body-left"><div id = "body-leftinfo"><div class="mb2"><button type="submit" class="btn btn-primary btn-lg btn-block">注册</button></div></div></div>
+                <div id = "body-right"><div id = "body-rightinfo"><div class="mb2"><button class="btn btn-primary btn-lg btn-block" href="Signin.jsp" >返回</button></div></div></div>
+            </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /container -->
+<script src="js/TweenLite.min.js"></script>
+<script src="js/EasePack.min.js"></script>
+<script src="js/rAF.js"></script>
+<script src="js/demo-1.js"></script>
+</body>
+</html>

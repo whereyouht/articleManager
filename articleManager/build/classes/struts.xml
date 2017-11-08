@@ -8,7 +8,8 @@
         <action name="Signin" class="Project.Action" method="signin">
             <result name="Success">/welcome.jsp</result>
             <result name="Fail">/signinerror.jsp</result>
-            </action>
+            <result name="Fail1">/notexit.jsp</result>
+        </action>
        	
        	<action name="Signup" class="Project.Action" method="signup">
             <result name="Success">/SignIn.jsp</result>

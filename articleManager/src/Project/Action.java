@@ -229,13 +229,14 @@ public class Action {
 
     public String signin() {
     	//System.out.print(share);
+    	//System.out.println(username+"&&"+password);
         String sqlForsignin = "select password from User where username=?";
         Matcher matcher = pattern.matcher(sqlForsignin);
         String sql1 = matcher.replaceFirst('"'+username+'"');//要到数据库中查询的语句
 
         DBConnection connect = new DBConnection();
         List<String> result = connect.select(sql1);//查询结果
-        
+        if (result.size() == 0) return "Fail1";
         
         if (result.get(0).equals(password)){
         	session.setAttribute( "username",  username);

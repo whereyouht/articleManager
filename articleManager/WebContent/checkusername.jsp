@@ -26,7 +26,7 @@ String username = request.getParameter("username");
 username = new String(username.getBytes("iso-8859-1"),"gb2312");
 String sqlForusername = "select * from User where username=";
 sqlForusername+='"'+username+'"';//解决中文乱码问题
-System.out.println(sqlForusername);
+//System.out.println(sqlForusername);
 	Connection conn=null;
 	try
     {
@@ -53,7 +53,7 @@ System.out.println(sqlForusername);
         ResultSet rs = stmt.executeQuery(sqlForusername);
         while(rs.next())
         {
-        	System.out.println("***************");
+        	//System.out.println("***************");
             for(i = 1;i<=rs.getMetaData().getColumnCount();i++){
                 list.add(rs.getString(i));}
         }
@@ -68,11 +68,11 @@ System.out.println(sqlForusername);
 	 }
     
     if (list.size() == 0 ){
-    	System.out.print("*****************");
+    	//System.out.print("*****************");
     	response.getWriter().println("该用户名并不存在，点此注册");
     }
     else {
-    	System.out.print("##########");
+    	//System.out.print("##########");
     	response.getWriter().println("");
     }
 %>
