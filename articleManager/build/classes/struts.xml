@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN" 
+"http://struts.apache.org/dtds/struts-2.5.dtd">
+<struts>
+    <include file="struts-default.xml"/>
+    <package name="Project" extends="struts-default">
+       
+        <action name="Signin" class="Project.Action" method="signin">
+            <result name="Success">/welcome.jsp</result>
+            <result name="Fail">/signinerror.jsp</result>
+            </action>
+       	
+       	<action name="Signup" class="Project.Action" method="signup">
+            <result name="Success">/SignIn.jsp</result>
+            <result name="Fail1">/signuperror.jsp</result>
+            <result name="Fail2">/error.jsp</result>
+            </action>
+            
+    	<action name="gotoEdit" class="Project.Action" method="gotoEdit">
+            <result name="Success">/Edit.jsp</result>
+   		</action>
+   		
+   		<action name="Edit" class="Project.Action" method="Edit">
+            <result name="Success">/welcome.jsp</result>
+            <result name="Fail">/SignIn.jsp</result>
+        </action>
+        
+        <action name="setArticle" class="Project.Action" method="setArticle">
+            <result name="Success">/welcome.jsp</result>
+            <result name="Fail">/error.jsp</result>
+            <result name="gotoSetsharearticle">/Setsharearticle.jsp</result>
+        </action>
+        
+        <action name="setshareArticle" class="Project.Action" method="setSharearticle">
+            <result name="Success">/welcome.jsp</result>
+            <result name="Fail2">/error.jsp</result>
+        </action>
+        
+        <action name="allArticle" class="Project.Action" method="allArticle">
+            <result name="Success">/allArticle.jsp</result>
+        </action>
+        
+        <action name="Delete" class="Project.Action" method="deleteArticle">
+            <result name="Success">/success.jsp</result>
+            <result name="Fail">/error.jsp</result>
+        </action>
+        
+        <action name="gotoEdit" class="Project.Action" method="gotoeditArticle">
+            <result name="Success">/update.jsp</result>
+        </action>
+        
+        <action name="updateArticle" class ="Project.Action" method="updateArticle">
+        	<result name="Success">/success.jsp</result>
+            <result name="Fail">/error.jsp</result>
+            <result name="updatesharearticle">/updatesharearticle.jsp</result>
+            <result name="gotoSetsharearticle">/Setsharearticle.jsp</result>
+        </action>
+        
+         <action name="updateshareArticle" class="Project.Action" method="updateshareArticle">
+            <result name="Success">/success.jsp</result>
+            <result name="Fail">/error.jsp</result>
+        </action>
+        
+        <action name="allshare" class="Project.Action" method="allshare">
+            <result name="Success">/allshare.jsp</result>
+        </action>
+        
+        <action name="information" class="Project.Action" method="information">
+            <result name="Success">/information.jsp</result>
+        </action>
+        
+        <action name="setcommentMessage" class="Project.Action" method="setcommentMessage">
+            <result name="Success">/success.jsp</result>
+            <result name="Fail">/error.jsp</result>
+        </action>
+        
+        <action name="search" class = "Project.Action" method="search">
+        	<result name = "Success">/searchResult.jsp</result>
+        </action>
+        
+        
+    </package>
+</struts> 
