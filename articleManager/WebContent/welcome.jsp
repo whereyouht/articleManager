@@ -17,14 +17,16 @@ out.print("<h1>"+username+",欢迎你"+"</h1>");%>
 <a herf = "SignIn.jsp">   <button  type="button">注销登陆</button></a>
 
 <form class="bs-example bs-example-form" role="form" action = "search">
-<span><select name= "searchType" ><!--这里的font-family代表字体 -->
-	<option value="1" >按时间查询</option>
-	<option value="2" >按关键字查询</option>
-	<option value="3" >按题目查询</option>
-	<option value="4" >按类型查询</option>
-	<option value="5" >全文检索</option>
-</select>
+	<span><select name= "searchType" ><!--这里的font-family代表字体 -->
+		<option value="1" >按时间查询</option>
+		<option value="2" >按关键字查询</option>
+		<option value="3" >按题目查询</option>
+		<option value="4" >按类型查询</option>
+		<option value="5" >全文检索</option>
+	</select>
 <input type="text" class="form-control" name = "searchText">
-<button type="Submit">查询</button></span></form>
+<button type="Submit">查询</button>
+</span>
+</form>
 </body>
 </html>
