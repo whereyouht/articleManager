@@ -45,6 +45,33 @@ public class Action {
     private String commenterId;//评论者编号
     private String commentMessage;//评论内容
     
+    private String year;
+    private String month;
+    private String day;
+    public String getYear(){
+    	return year;
+    }
+    
+    public String getMonth(){
+    	return month;
+    }
+    
+    public String getDay(){
+    	return day;
+    }
+    
+    public void setYear(String year){
+        this.year = year;
+    }
+    
+    public void setMonth(String month){
+        this.month = month;
+    }
+    
+    public void setDay(String day){
+        this.day = day;
+    }
+    
     ServletRequest request = ServletActionContext.getRequest();
     HttpServletRequest req = (HttpServletRequest) request;
     HttpSession session = req.getSession();
@@ -229,11 +256,11 @@ public class Action {
 
     public String signin() {
     	//System.out.print(share);
-    	//System.out.println(username+"&&"+password);
+    	System.out.println(username+"&&"+password);
         String sqlForsignin = "select password from User where username=?";
         Matcher matcher = pattern.matcher(sqlForsignin);
-        String sql1 = matcher.replaceFirst('"'+username+'"');//要到数据库中查询的语句
-
+        String sql1 = matcher.replaceFirst("'"+username+"'");//要到数据库中查询的语句
+        select();
         DBConnection connect = new DBConnection();
         List<String> result = connect.select(sql1);//查询结果
         if (result.size() == 0) return "Fail1";
@@ -244,7 +271,66 @@ public class Action {
         }
         else return "Fail";
     }
-
+    
+    public void select(){
+    	String sqlfor1, sqlfor2, sqlfor3, sqlfor4;
+    	sqlfor1 = "select articleid from shareArticle where shareClassfyid='1'";
+    	sqlfor2 = "select articleid from shareArticle where shareClassfyid='2'";
+    	sqlfor3 = "select articleid from shareArticle where shareClassfyid='3'";
+    	sqlfor4 = "select articleid from shareArticle where shareClassfyid='4'";
+    	DBConnection connect = new DBConnection();
+        
+    	String sql = "select * from article where articleid=?";
+    	List<String> result1 = connect.select(sqlfor1);//查询结果
+    	List<String> list1 = new ArrayList<>();
+    	for (int i = 0; i< result1.size(); i++){
+            Matcher matcher = pattern.matcher(sql);
+            sql = matcher.replaceFirst("'"+result1.get(i)+"'");
+            for (String str: connect.select(sql)){
+            	list1.add(str);
+            }
+    	}
+    	session.setAttribute("list1", list1);
+    	
+    	sql = "select * from article where articleid=?";
+    	List<String> result2 = connect.select(sqlfor2);//查询结果
+    	List<String> list2 = new ArrayList<>();
+    	for (int i = 0; i< result2.size(); i++){
+            Matcher matcher = pattern.matcher(sql);
+            sql = matcher.replaceFirst("'"+result2.get(i)+"'");
+            for (String str: connect.select(sql)){
+            	list2.add(str);
+            }
+    	}
+    	session.setAttribute("list2", list2);
+    	
+    	sql = "select * from article where articleid=?";
+    	List<String> result3 = connect.select(sqlfor3);//查询结果
+    	List<String> list3 = new ArrayList<>();
+    	for (int i = 0; i< result3.size(); i++){
+            Matcher matcher = pattern.matcher(sql);
+            sql = matcher.replaceFirst("'"+result3.get(i)+"'");
+            for (String str: connect.select(sql)){
+            	list3.add(str);
+            }
+    	}
+    	session.setAttribute("list3", list3);
+    	
+    	sql = "select * from article where articleid=?";
+    	List<String> result4 = connect.select(sqlfor4);//查询结果	
+    	List<String> list4 = new ArrayList<>();
+    	for (int i = 0; i< result4.size(); i++){
+            Matcher matcher = pattern.matcher(sql);
+            sql = matcher.replaceFirst("'"+result4.get(i)+"'");
+            for (String str: connect.select(sql)){
+            	list4.add(str);
+            }
+    	}
+    	session.setAttribute("list4", list4);
+    	
+    	
+    }
+    
     public String signup() {
     	//System.out.print("******");
     	//System.out.println(username+EmailOrTel+password+birthday);
@@ -269,13 +355,13 @@ public class Action {
 
         String sqlForsignup = "insert into User( userid, username, EmailOrTel, password) values(?,?,?,?)";
         Matcher matcher = pattern.matcher(sqlForsignup);
-        sqlForsignup = matcher.replaceFirst('"'+userid+'"');
+        sqlForsignup = matcher.replaceFirst("'"+userid+"'");
         matcher = pattern.matcher(sqlForsignup);
-        sqlForsignup = matcher.replaceFirst('"'+username+'"');
+        sqlForsignup = matcher.replaceFirst("'"+username+"'");
         matcher = pattern.matcher(sqlForsignup);
-        sqlForsignup = matcher.replaceFirst('"'+EmailOrTel+'"');
+        sqlForsignup = matcher.replaceFirst("'"+EmailOrTel+"'");
         matcher = pattern.matcher(sqlForsignup);
-        sqlForsignup = matcher.replaceFirst('"'+password+'"');
+        sqlForsignup = matcher.replaceFirst("'"+password+"'");
         classify = "0 馆藏分类";
         int signal=connect.insert(sqlForsignup);//返回注册结果
         if(signal==1)
@@ -285,22 +371,19 @@ public class Action {
     }
     
     public  String gotoEdit(){//邮箱不可以改 其他都可以
-    	System.out.println("1150310115");
-        //sql[0]="update Book set AuthorID=?,Publisher=?,PublishDate=?,Price=? where ISBN=?";
         String sqlForedit = "select * from User where username=?";
         Matcher matcher = pattern.matcher(sqlForedit);
-        sqlForedit = matcher.replaceFirst('"'+username+'"');
+        sqlForedit = matcher.replaceFirst("'"+username+"'");
         DBConnection connect = new DBConnection();
         List<String> listInformation  = connect.select(sqlForedit);
         session.setAttribute("userInformation", listInformation);
-        System.out.println("1150310115");
         return "Success";
     }
     
-    public String information(){
+    public String information(){//一篇文章的详细信息
     	String sqlForallarticle = "select * from article where articleid = ?";
     	Matcher matcher = pattern.matcher(sqlForallarticle);
-        sqlForallarticle = matcher.replaceFirst('"'+articleid+'"');
+        sqlForallarticle = matcher.replaceFirst("'"+articleid+"'");
         
         DBConnection connect = new DBConnection();
         List<String> list=connect.select(sqlForallarticle);
@@ -309,7 +392,7 @@ public class Action {
         
         String sqlForcomment = "select * from comment where commentArticleid = ?";
     	matcher = pattern.matcher(sqlForcomment);
-        sqlForcomment = matcher.replaceFirst('"'+articleid+'"');
+        sqlForcomment = matcher.replaceFirst("'"+articleid+"'");
         
         List<String> list1=connect.select(sqlForcomment);
         for(String str : list1){
@@ -319,20 +402,22 @@ public class Action {
     	return "Success";
     }
     
+    
     public String Edit(){
         String sqlInformation = "update User set username=?,age=?,sex=?,birthday=?,message=? where EmailOrTel=?";
         Matcher matcher = pattern.matcher(sqlInformation);
-        sqlInformation = matcher.replaceFirst('"'+username+'"');
+        sqlInformation = matcher.replaceFirst("'"+username+"'");
         matcher = pattern.matcher(sqlInformation);
-        sqlInformation = matcher.replaceFirst('"'+age+'"');
+        sqlInformation = matcher.replaceFirst("'"+age+"'");
         matcher = pattern.matcher(sqlInformation);
-        sqlInformation = matcher.replaceFirst('"'+sex+'"');
+        sqlInformation = matcher.replaceFirst("'"+sex+"'");
         matcher = pattern.matcher(sqlInformation);
-        sqlInformation = matcher.replaceFirst('"'+birthday+'"');
+        birthday = year+"年"+month+"月"+day+"日";
+        sqlInformation = matcher.replaceFirst("'"+birthday+"'");
         matcher = pattern.matcher(sqlInformation);
-        sqlInformation = matcher.replaceFirst('"'+message+'"');
+        sqlInformation = matcher.replaceFirst("'"+message+"'");
         matcher = pattern.matcher(sqlInformation);
-        sqlInformation = matcher.replaceFirst('"'+EmailOrTel+'"');
+        sqlInformation = matcher.replaceFirst("'"+EmailOrTel+"'");
         
         System.out.println(sqlInformation);
         DBConnection connect = new DBConnection();
@@ -348,7 +433,7 @@ public class Action {
     public String allArticle(){
     	String sqlForallarticle = "select * from article where username=?";
     	Matcher matcher = pattern.matcher(sqlForallarticle);
-        sqlForallarticle = matcher.replaceFirst('"'+username+'"');
+        sqlForallarticle = matcher.replaceFirst("'"+username+"'");
         
         DBConnection connect = new DBConnection();
         List<String> list=connect.select(sqlForallarticle);
@@ -444,15 +529,15 @@ public class Action {
         }
 
         Matcher matcher = pattern.matcher(sqlForsetcommentMessage);
-        sqlForsetcommentMessage = matcher.replaceFirst('"'+commentId+'"');
+        sqlForsetcommentMessage = matcher.replaceFirst("'"+commentId+"'");
         matcher = pattern.matcher(sqlForsetcommentMessage);
-        sqlForsetcommentMessage = matcher.replaceFirst('"'+articleid+'"');
+        sqlForsetcommentMessage = matcher.replaceFirst("'"+articleid+"'");
         matcher = pattern.matcher(sqlForsetcommentMessage);
-        sqlForsetcommentMessage = matcher.replaceFirst('"'+time()+'"');
+        sqlForsetcommentMessage = matcher.replaceFirst("'"+time()+"'");
         matcher = pattern.matcher(sqlForsetcommentMessage);
-        sqlForsetcommentMessage = matcher.replaceFirst('"'+username+'"');
+        sqlForsetcommentMessage = matcher.replaceFirst("'"+username+"'");
         matcher = pattern.matcher(sqlForsetcommentMessage);
-        sqlForsetcommentMessage = matcher.replaceFirst('"'+commentMessage+'"');
+        sqlForsetcommentMessage = matcher.replaceFirst("'"+commentMessage+"'");
         
         int signal = connect.insert(sqlForsetcommentMessage);
         if(signal==1) {
@@ -463,15 +548,16 @@ public class Action {
     
     public String setArticle(){//创建文章,同一个作者不允许出现相同题目的情况
     	//System.out.print(share);
+    	System.out.println(content);
         String sqlForsetupArticle = "insert into Article( articleid, title, content, share, username, time, classifyid) " +
                 "values(?,?,?,?,?,?,?)";//0代表默认文件夹
         DBConnection connect = new DBConnection();//classifyid首先设置在默认文件夹0
         										//共享文章上传时确定								
         String sql = "select articleid from Article where title = ? and username = ?";
         Matcher matcherforsql = pattern.matcher(sql);//同一个作者不允许出现相同题目的情况,不同作者可以出现
-        sql = matcherforsql.replaceFirst('"'+title+'"');
+        sql = matcherforsql.replaceFirst("'"+title+"'");
         matcherforsql = pattern.matcher(sql);
-        sql = matcherforsql.replaceFirst('"'+username+'"');
+        sql = matcherforsql.replaceFirst("'"+username+"'");
         List<String> listforsql = connect.select(sql);
         if (listforsql.size() != 0) return "Fail";
         
@@ -491,19 +577,19 @@ public class Action {
         else share = "1";//0代表不共享
         classifyid = "0";//新建的文章均放在默认文件夹下
         Matcher matcher = pattern.matcher(sqlForsetupArticle);
-        sqlForsetupArticle = matcher.replaceFirst('"'+articleid+'"');
+        sqlForsetupArticle = matcher.replaceFirst("'"+articleid+"'");
         matcher = pattern.matcher(sqlForsetupArticle);
-        sqlForsetupArticle = matcher.replaceFirst('"'+title+'"');
+        sqlForsetupArticle = matcher.replaceFirst("'"+title+"'");
         matcher = pattern.matcher(sqlForsetupArticle);
-        sqlForsetupArticle = matcher.replaceFirst('"'+content+'"');
+        sqlForsetupArticle = matcher.replaceFirst("'"+content+"'");
         matcher = pattern.matcher(sqlForsetupArticle);
-        sqlForsetupArticle = matcher.replaceFirst('"'+share+'"');
+        sqlForsetupArticle = matcher.replaceFirst("'"+share+"'");
         matcher = pattern.matcher(sqlForsetupArticle);
-        sqlForsetupArticle = matcher.replaceFirst('"'+username+'"');
+        sqlForsetupArticle = matcher.replaceFirst("'"+username+"'");
         matcher = pattern.matcher(sqlForsetupArticle);
-        sqlForsetupArticle = matcher.replaceFirst('"'+time()+'"');
+        sqlForsetupArticle = matcher.replaceFirst("'"+time()+"'");
         matcher = pattern.matcher(sqlForsetupArticle);
-        sqlForsetupArticle = matcher.replaceFirst('"'+classifyid+'"');//确定插入内容
+        sqlForsetupArticle = matcher.replaceFirst("'"+classifyid+"'");//确定插入内容
 
         int signal = connect.insert(sqlForsetupArticle);
         if(signal==1) {
@@ -533,14 +619,14 @@ public class Action {
         String sqlForsetshareArticle = "insert into sharearticle( shareArticleid, articleid,shareClassfyid, keywords) " +
                  "values(?,?,?,?)";
         Matcher matcher = pattern.matcher(sqlForsetshareArticle);
-        sqlForsetshareArticle = matcher.replaceFirst('"'+shareArticleid+'"');
+        sqlForsetshareArticle = matcher.replaceFirst("'"+shareArticleid+"'");
         matcher = pattern.matcher(sqlForsetshareArticle);
-        sqlForsetshareArticle = matcher.replaceFirst('"'+articleid+'"');
+        sqlForsetshareArticle = matcher.replaceFirst("'"+articleid+"'");
         matcher = pattern.matcher(sqlForsetshareArticle);
-        sqlForsetshareArticle = matcher.replaceFirst('"'+shareClassfyid+'"');
+        sqlForsetshareArticle = matcher.replaceFirst("'"+shareClassfyid+"'");
         matcher = pattern.matcher(sqlForsetshareArticle);
-        sqlForsetshareArticle = matcher.replaceFirst('"'+keywords+'"');
-        
+        sqlForsetshareArticle = matcher.replaceFirst("'"+keywords+"'");
+        select();
         int signal=connect.insert(sqlForsetshareArticle);//返回注册结果
         if(signal==1)
             return "Success";
@@ -560,7 +646,7 @@ public class Action {
         DBConnection connect = new DBConnection();
         String sqlDelete = "delete from Article where articleid= ?";
         Matcher matcherforsql = pattern.matcher(sqlDelete);//同一个作者不允许出现相同题目的情况,不同作者可以出现
-        sqlDelete = matcherforsql.replaceFirst('"'+articleid+'"');
+        sqlDelete = matcherforsql.replaceFirst("'"+articleid+"'");
         int signal = connect.delete(sqlDelete);
         if(signal==1) return "Success";
         else return "Fail";
@@ -570,7 +656,7 @@ public class Action {
     	DBConnection connect = new DBConnection();
         String sql = "select * from Article where articleid=?";
         Matcher matcherforsql = pattern.matcher(sql);//同一个作者不允许出现相同题目的情况,不同作者可以出现
-        sql = matcherforsql.replaceFirst('"'+articleid+'"');
+        sql = matcherforsql.replaceFirst("'"+articleid+"'");
         List<String> list = connect.select(sql);
         for(String str: list){
         	System.out.println(str);
@@ -583,9 +669,9 @@ public class Action {
         DBConnection connect = new DBConnection();
         String sql = "select articleid from Article where username = ? and title = ?";
         Matcher matcherforsql = pattern.matcher(sql);//同一个作者不允许出现相同题目的情况,不同作者可以出现
-        sql = matcherforsql.replaceFirst('"'+username+'"');
+        sql = matcherforsql.replaceFirst("'"+username+"'");
         matcherforsql = pattern.matcher(sql);//同一个作者不允许出现相同题目的情况,不同作者可以出现
-        sql = matcherforsql.replaceFirst('"'+title+'"');
+        sql = matcherforsql.replaceFirst("'"+title+"'");
         List<String> listforsql = connect.select(sql);
         if (listforsql.size() != 1) return "Fail";
 
@@ -593,25 +679,24 @@ public class Action {
         Matcher matcher = pattern.matcher(sqlForupdateArticle);
         sqlForupdateArticle = matcher.replaceFirst('"'+title+'"');
         matcher = pattern.matcher(sqlForupdateArticle);
-        sqlForupdateArticle = matcher.replaceFirst('"'+content+'"');
+        sqlForupdateArticle = matcher.replaceFirst("'"+content+"'");
         matcher = pattern.matcher(sqlForupdateArticle);
         if(share == null) share = "0";
         else share = "1";
-        sqlForupdateArticle = matcher.replaceFirst('"'+share+'"');
+        sqlForupdateArticle = matcher.replaceFirst("'"+share+"'");
         matcher = pattern.matcher(sqlForupdateArticle);
-        sqlForupdateArticle = matcher.replaceFirst('"'+time()+'"');
+        sqlForupdateArticle = matcher.replaceFirst("'"+time()+"'");
         matcher = pattern.matcher(sqlForupdateArticle);
-        sqlForupdateArticle = matcher.replaceFirst('"'+articleid+'"');//确定更新内容
+        sqlForupdateArticle = matcher.replaceFirst("'"+articleid+"'");//确定更新内容
 
         int signal = connect.update(sqlForupdateArticle);
         if( signal == 1)
         {
         	sql = "select * from sharearticle where articleid = ?";//在共享文章库里面查找是否有该文章
         	Matcher matcher11 = pattern.matcher(sql);
-    		sql = matcher11.replaceFirst('"'+articleid+'"');
+    		sql = matcher11.replaceFirst("'"+articleid+"'");
     		DBConnection connect2 = new DBConnection();
     		List<String> list = connect2.select(sql);
-    		System.out.print("%%%%%%%%");
         	if (share.equals("1")){//一共是四种情况
         		for (String str:list){
         			System.out.print(str);
@@ -628,7 +713,7 @@ public class Action {
         		if(list.size() != 0){//之前共享 现在不共享 那么从共享表里删除
         			String sqlDelete = "delete from sharearticle where articleid= ?";
         	        matcherforsql = pattern.matcher(sqlDelete);//同一个作者不允许出现相同题目的情况,不同作者可以出现
-        	        sqlDelete = matcherforsql.replaceFirst('"'+articleid+'"');
+        	        sqlDelete = matcherforsql.replaceFirst("'"+articleid+"'");
         	        int signnal = connect.delete(sqlDelete);
         	        if(signal==1) return "Success";
         	        else return "Fail";
@@ -640,14 +725,16 @@ public class Action {
     }
     
     public String updateshareArticle(){
+    	System.out.print("hello");
     	String sqlForupdateArticle = "update sharearticle set shareClassfyid = ?, keywords = ? where articleid =?";
         Matcher matcher = pattern.matcher(sqlForupdateArticle);
-        sqlForupdateArticle = matcher.replaceFirst('"'+shareClassfyid+'"');//
+        sqlForupdateArticle = matcher.replaceFirst("'"+shareClassfyid+"'");//
         matcher = pattern.matcher(sqlForupdateArticle);
-        sqlForupdateArticle = matcher.replaceFirst('"'+keywords+'"');//
+        sqlForupdateArticle = matcher.replaceFirst("'"+keywords+"'");//
         matcher = pattern.matcher(sqlForupdateArticle);
-        sqlForupdateArticle = matcher.replaceFirst('"'+articleid+'"');//
+        sqlForupdateArticle = matcher.replaceFirst("'"+articleid+"'");//
         DBConnection connect = new DBConnection();
+        select();
         int signal = connect.update(sqlForupdateArticle);
         if( signal == 1){
         	return "Success";
@@ -663,7 +750,7 @@ public class Action {
 		for (int i = 0; i < list.size(); i++){
 			String  sql1 = "select * from  article where articleid = ?";
 			Matcher matcher = pattern.matcher(sql1);
-		    sql1 = matcher.replaceFirst('"'+list.get(i)+'"');//
+		    sql1 = matcher.replaceFirst("'"+list.get(i)+"'");//
 			List<String> list1 = connect2.select(sql1);//对于每个共享的文章id 在文章表中 查找他们的详细信息
 			for (String str: list1){//详细信息添加到
 				list2.add(str);
@@ -872,4 +959,18 @@ public class Action {
         session.setAttribute("resultForsearchbycontent", resultForsearchbycontent);//返回值是文章的题目
         return "Sucess";
     }
+    
+    public String deleteshare(){
+    	if(username.equals("root")){
+    		DBConnection connect = new DBConnection();
+            String sqlDelete = "delete from Article where articleid= ?";
+            Matcher matcherforsql = pattern.matcher(sqlDelete);//同一个作者不允许出现相同题目的情况,不同作者可以出现
+            sqlDelete = matcherforsql.replaceFirst("'"+articleid+"'");
+            int signal = connect.delete(sqlDelete);
+            if(signal==1) return "Success";
+            else return "Fail";		
+    	}
+    	else return "Fail";
+    }
+    
 }

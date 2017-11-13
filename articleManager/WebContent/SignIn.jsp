@@ -9,13 +9,10 @@ pageEncoding="UTF-8"%>
 <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
 <meta name="viewport" content="width=device-width, initial-scale=1"> 
 <title>login</title>
-<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">  
 <link rel="stylesheet" type="text/css" href="css/normalize.css" />
 <link rel="stylesheet" type="text/css" href="css/demo.css" />
 <!--必要样式-->
 <link rel="stylesheet" type="text/css" href="css/component.css" />
-<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
-<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script >
 	var xmlHttpReq;  //创建一个XmlHttpRequest对象  
 	function createXmlHttpRequest()  
@@ -66,7 +63,7 @@ pageEncoding="UTF-8"%>
 					<canvas id="demo-canvas"></canvas>
 					<div class="logo_box">
 						<h3>文章管理系统欢迎您</h3>
-						<form action="Signin" name="Project.Action" method="signin">
+						<form  action ="Signin" class="Project.Action" method="signin" id="input">
 							<div class="input_outer">
 								<span class="u_user"></span>
 								<input name="username" class="text" id="inputUsername" onblur="checkUsername()" style="color: #FFFFFF !important" 
@@ -79,9 +76,9 @@ pageEncoding="UTF-8"%>
 								<input name="password" class="text" style="color: #FFFFFF !important; position:absolute; z-index:100;"
 									 id="inputPassword3" type="password" placeholder="请输入密码" type="submit">
 							</div>
-							<div class="mb2"><button type="submit" class="btn btn-primary btn-lg btn-block">登录</button></div>
+							<div class="mb2"><a class="act-but submit" onclick="document.getElementById('input').submit();"  style="color: #FFFFFF">登录</a></div>
 							<div class="mb2"><a class="act-but submit" href="signup.jsp"   style="color: #FFFFFF">注册</a></div>
-							
+				
 						</form>
 					</div>
 				</div>

@@ -10,13 +10,12 @@ pageEncoding="UTF-8" %>
 <title>修改共享文章</title>
 </head>
 <body>
+<center>
 <h1>修改共享文章</h1>
-<h1><% List<String> list2 = (List<String>)session.getAttribute("list");
-for(String str : list2){
-out.print(str+"******");
-}%></h1>
-<form class="form-horizontal" role="form" action ="updateshareArticle">
+<%List<String> list1 = (List<String>)session.getAttribute("list"); %>
+<form class="form-horizontal" role="form" action ="updateshareArticle?articleid="+<%out.print(list1.get(0)); %>>
 	<div class="form-group">
+	<label for="keywords">文章分类</label>
     <select name= "shareClassfyid" ><!--这里的font-family代表字体 -->
 			<option value="1" >计算机科学</option>
 			<option value="2" >人文</option>
@@ -29,7 +28,7 @@ out.print(str+"******");
     <label for="keywords" class="col-sm-5 control-label">文章关键字</label>
     <div class="col-sm-3">
       <input type="text" class="form-control" id="keywords" name = "keywords" 
-      value = "<%List<String> list1 = (List<String>)session.getAttribute("list");
+      value = "<%
     		out.print(list1.get(3));
     		%>"/>
     </div>
@@ -48,8 +47,6 @@ out.print(str+"******");
 	</div>
   </div>
 </form>
-
-
-
+</center>
 </body>
 </html>

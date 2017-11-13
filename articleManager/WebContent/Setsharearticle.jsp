@@ -10,9 +10,11 @@ pageEncoding="UTF-8" %>
 <title>添加共享文章</title>
 </head>
 <body>
+<center>
 <h1>发表共享文章</h1>
 <form class="form-horizontal" role="form" action ="setshareArticle">
 	<div class="form-group">
+	<label for="keywords">文章分类</label>
     <select name= "shareClassfyid" ><!--这里的font-family代表字体 -->
 			<option value="1" >计算机科学</option>
 			<option value="2" >人文</option>
@@ -40,7 +42,7 @@ pageEncoding="UTF-8" %>
 	</div>
   </div>
 </form>
-
+</center>
 
 
 </body>

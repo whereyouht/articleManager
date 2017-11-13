@@ -35,24 +35,19 @@ pageEncoding="UTF-8"%>
                     </script>
         </head>
 <body>
-<h1>发表文章</h1>
 <center>
+<h1>发表文章</h1>
+
   <div id="main" role="main">
   
             <form action ="setArticle">
-               <div class="form-group">
-                   <div class="col-sm-10">
-                         <input type="text" class="form-control" id="Title" name="Title" placeholder="请输入文章题目"  />
-                  </div>
-       </div>
-       					
                     <div class="form-group">
                           <div class="col-sm-12">
-                                 <div id="main" role="main">
-                                      <div id="simple-editor">
-                                           <textarea name="content" placeholder= "请在此输入文章正文"  style="width:700px;height:200px;visibility:hidden;"></textarea>
+                                 <div id="simple-editor">
+                              <input type="text" class="form-control" id="Title" name="Title" placeholder="请输入文章题目" style="width:700px;height:30px;" />
+                             <textarea name="content" placeholder= "请在此输入文章正文"  style="width:700px;height:200px;visibility:hidden;"></textarea>
                                       </div>
-                                </div>
+                           
                           </div>
                     </div>
 

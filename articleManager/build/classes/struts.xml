@@ -17,7 +17,7 @@
             <result name="Fail2">/error.jsp</result>
             </action>
             
-    	<action name="gotoEdit" class="Project.Action" method="gotoEdit">
+    	<action name="goEdit" class="Project.Action" method="gotoEdit">
             <result name="Success">/Edit.jsp</result>
    		</action>
    		
@@ -67,7 +67,7 @@
         </action>
         
         <action name="information" class="Project.Action" method="information">
-            <result name="Success">/information.jsp</result>
+            <result name="Success">/result.jsp</result>
         </action>
         
         <action name="setcommentMessage" class="Project.Action" method="setcommentMessage">
@@ -75,8 +75,13 @@
             <result name="Fail">/error.jsp</result>
         </action>
         
-        <action name="search" class = "Project.Action" method="search">
+        <action name="gosearch" class = "Project.Action" method="search">
         	<result name = "Success">/searchResult.jsp</result>
+        </action>
+        
+        <action name="deleteshare" class = "Project.Action" method="deleteshare">
+        	<result name = "Success">/success.jsp</result>
+        	<result name = "Fail">/error.jsp</result>
         </action>
         
         

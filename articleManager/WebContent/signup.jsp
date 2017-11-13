@@ -2,22 +2,14 @@
 <!DOCTYPE html>
 <html lang="en" class="no-js">
 <head>
-    <meta charset="UTF-8" />
+        <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>login</title>
+    <title>文章管理系统</title>
     <link rel="stylesheet" type="text/css" href="css/normalize.css" />
     <link rel="stylesheet" type="text/css" href="css/demo.css" />
     <link rel="stylesheet" type="text/css" href="css/component.css" />
-    <link rel="stylesheet" href="css/common_form.css">
-    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">  
-    
     <script src="js/html5.js"></script>
-    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <meta charset="UTF-8">
-    <title>注册</title>
-    
     <script >
     var xmlHttpReq;  //创建一个XmlHttpRequest对象  
     function createXmlHttpRequest()  
@@ -95,10 +87,10 @@
             <canvas id="demo-canvas"></canvas>
             <div class="logo_box">
                 <h1>注册界面</h1>
-                <form action="Signup" class="Project.Action" method="signup">
+                <form action="Signup" class="Project.Action" method="signup" id="input">
                     <div class="input_outer">
                         <span class="u_user"></span>
-                        <input name="username" id="inputUsername" class="text" style="color: #FFFFFF !important" type="text" placeholder="用户名" onchange="checkUsername()">
+                        <input name="username" id="inputUsername" class="text" style="color: #FFFFFF !important" type="text" placeholder="请输入用户名" onchange="checkUsername()">
                      <span id= "resultUsername"></span>
                     </div>
 
@@ -115,11 +107,11 @@
 
                     <div>
                         <td><p><font size = "5" face ="arial" color ="grey">性别：</font></td>
-                        <td><input type="radio" name="sex" value="man" checked />男</td>
+                        <td> <input type="radio" name="sex" value="man" checked />男</td>
                         <td> <input type="radio" name="sex" value="woman"  />女</td>
                     </div>
                    
-            		<div class="mb2"><button type="submit" class="btn btn-primary btn-lg btn-block">注册</button></div>
+            		<div class="mb2"><a class="act-but submit" onclick="document.getElementById('input').submit();"  style="color: #FFFFFF">注册</a></div>
 					<div class="mb2"><a class="act-but submit" href="SignIn.jsp"   style="color: #FFFFFF">返回</a></div>
                 </form>
             </div>
